@@ -8,19 +8,31 @@ namespace NotesApp.MVC.Controllers
     {
         NoteService noteService = new NoteService();
 
-        public IActionResult Index(string search)
+        public IActionResult Index(string search, string tag, string sort)
         {
-            if (string.IsNullOrWhiteSpace(search))
+            var notes = noteService.GetAllNotes();
+
+            if (!string.IsNullOrWhiteSpace(search))
             {
-                var notes = noteService.GetAllNotes();
-                return View(notes);
-            }
-            else 
-            {
-                var searchResults = noteService.SearchNotes(search);
-                return View(searchResults);
+                notes = noteService.SearchNotes(search);
             }
 
+            if (!string.IsNullOrWhiteSpace(tag))
+            {
+                notes = noteService.FilterByTags(new List<string> { tag });
+            }
+
+            if (!string.IsNullOrWhiteSpace(sort))
+            {
+                notes = sort switch
+                {
+                    "data_asc" => notes.OrderBy(n => n.CreatedAt).ToList(),
+                    "data_desc" => notes.OrderByDescending(n => n.CreatedAt).ToList(),
+                    _ => notes
+                };
+            }
+            
+            return View(notes);
         }
 
 
