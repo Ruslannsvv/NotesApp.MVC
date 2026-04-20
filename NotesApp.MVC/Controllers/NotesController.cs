@@ -17,7 +17,8 @@ namespace NotesApp.MVC.Controllers
 
 
         [HttpGet]
-        public IActionResult Create() { 
+        public IActionResult Create()
+        {
             return View();
         }
 
@@ -33,11 +34,33 @@ namespace NotesApp.MVC.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult Delete(int id) { 
+        public IActionResult Delete(int id)
+        {
             noteService.Delete(id);
             return RedirectToAction("Index");
         }
-    }
-    
 
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var note = noteService.GetNoteById(id);
+            if (note == null)
+                return NotFound();
+            return View(note);
+        }
+
+        [HttpPost]
+
+        public IActionResult Edit(int id, string title, string content, string tags)
+        {
+            var tagList = tags != null && tags != ""
+                ? tags.Split(',').Select(t => t.Trim()).ToList()
+                : new List<string>();
+            noteService.UpdateNote(id, title, content, tagList);
+            return RedirectToAction("Index");
+
+
+        }
+
+    }
 }

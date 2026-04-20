@@ -1,0 +1,28 @@
+﻿@model NotesApp.MVC.Models.Note
+
+<h1>Edit Note</h1>
+
+<form method="post">
+    <input type="hidden" name="id" value="@Model.Id" />
+
+    <div>
+        <label for="title">Title</label>
+        <input type="text" id="title" name="title" value="@Model.Title" />
+    </div>
+
+    <div>
+        <label for="content">Content</label>
+        <textarea id="content" name="content">@Model.Content</textarea>
+    </div>
+
+    <div>
+        <label for="tags">Tags</label>
+        <input type="text" id="tags" name="tags"
+               value="@string.Join(", ", Model.Tags ?? new List<string>())" />
+    </div>
+
+    <button type="submit">Save</button>
+
+</form>
+
+<a href="~/Notes">Back to list</a>

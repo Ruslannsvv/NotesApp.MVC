@@ -69,6 +69,17 @@ namespace NotesApp.MVC.Services
                 notes.Remove(note);
             }
         }
+            public void UpdateNote(int id, string title, string content, List<string> tags)
+            {
+                var note = GetNoteById(id);
+                if (note != null)
+                {
+                    note.Title = title;
+                    note.Content = content ?? string.Empty;
+                    note.Tags = tags ?? new List<string>();
+                    note.UpdatedAt = DateTime.UtcNow;
+                }
+        }
     }
 }
    
