@@ -51,6 +51,11 @@ namespace NotesApp.MVC.Services
             }
             return results;
         }
+
+        public List<Note> GetAllNotes()
+        {
+            return new List<Note>(notes);
+        }
     }
 }
    
