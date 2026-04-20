@@ -3,7 +3,7 @@ namespace NotesApp.MVC.Services
 {
     public class NoteService
     {
-        private List<Note> notes = new List<Note>();
+        private static List<Note> notes = new List<Note>();
         public Note AddNote(string title, string content, List<string> tags)
         {
             var note = new Note {
@@ -55,6 +55,19 @@ namespace NotesApp.MVC.Services
         public List<Note> GetAllNotes()
         {
             return new List<Note>(notes);
+        }
+
+        public Note GetNoteById(int id)
+        {
+            return notes.FirstOrDefault(n => n.Id == id);
+        }
+        public void Delete(int id)
+        {
+            var note = GetNoteById(id);
+            if (note != null)
+            {
+                notes.Remove(note);
+            }
         }
     }
 }

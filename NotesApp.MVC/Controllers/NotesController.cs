@@ -32,6 +32,11 @@ namespace NotesApp.MVC.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public IActionResult Delete(int id) { 
+            noteService.Delete(id);
+            return RedirectToAction("Index");
+        }
     }
     
 
