@@ -2,6 +2,11 @@
 
 <h1>My Notes</h1>
 
+<form method="get">
+	<input type="text" name="search" placeholder="Search notes..." />
+	<button type="submit">Search</button>
+</form>
+
 <a class="createNote" href="~/Notes/Create">Create Note</a>
 
 @if (!Model.Any())
@@ -15,7 +20,7 @@
 			<h2>@note.Title</h2>
 			<p>@note.Content</p>
 			<a href="~/Notes/Edit?id=@note.Id">Edit</a>
-			
+
 			<form method="post">
 				<button type="submit" formaction="~/Notes/Delete?id=@note.Id">Delete</button>
 			</form>

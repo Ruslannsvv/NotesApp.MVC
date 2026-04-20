@@ -8,10 +8,18 @@ namespace NotesApp.MVC.Controllers
     {
         NoteService noteService = new NoteService();
 
-        public IActionResult Index()
+        public IActionResult Index(string search)
         {
-            var notes = noteService.GetAllNotes();
-            return View(notes);
+            if (string.IsNullOrWhiteSpace(search))
+            {
+                var notes = noteService.GetAllNotes();
+                return View(notes);
+            }
+            else 
+            {
+                var searchResults = noteService.SearchNotes(search);
+                return View(searchResults);
+            }
 
         }
 
