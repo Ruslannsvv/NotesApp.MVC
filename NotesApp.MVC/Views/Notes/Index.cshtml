@@ -1,13 +1,22 @@
 ﻿@model List<NotesApp.MVC.Models.Note>
 
+
+<div class="container">	
 <h1>My Notes</h1>
 
 <form method="get">
 	<input type="text" name="search" placeholder="Search notes..." />
+	<input type="text" name="tag" placeholder="Filter by tag..." />
+
+	<select name="sort">
+		<option value="">No sorting.</option>
+		<option value="date_asc">Date up</option>
+		<option value="date_desc">Date down</option>
+	</select>
 	<button type="submit">Search</button>
 </form>
 
-<a class="createNote" href="~/Notes/Create">Create Note</a>
+<a class="btn" href="~/Notes/Create">Create Note</a>
 
 @if (!Model.Any())
 {
@@ -16,7 +25,7 @@
 {
 	foreach (var note in Model)
 	{
-		<div>
+		<div class="note">
 			<h2>@note.Title</h2>
 			<p>@note.Content</p>
 			<a href="~/Notes/Edit?id=@note.Id">Edit</a>
@@ -28,5 +37,5 @@
 		</div>
 	}
 }
-
+</div>
 
